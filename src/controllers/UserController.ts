@@ -20,7 +20,7 @@ export const registerUser = expressAsyncHandler(
             username?: string
         };
 
-        if (!email || !password || !username || fullName) {
+        if (!email || !password || !username || !fullName) {
             res.status(400);
             throw new Error("Email and password are required");
         }

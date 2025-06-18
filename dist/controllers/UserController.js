@@ -19,7 +19,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../model/User"));
 exports.registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password, username, fullName } = req.body;
-    if (!email || !password || !username || fullName) {
+    if (!email || !password || !username || !fullName) {
         res.status(400);
         throw new Error("Email and password are required");
     }
