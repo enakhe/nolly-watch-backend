@@ -44,9 +44,9 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use('/api', UserRoute_1.default);
 // Error handler middleware
 app.use(ErrorMiddleware_1.errorHandler);
-app.use('/api', UserRoute_1.default);
 // **Ensure database connection before starting the server and seeding data**
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
