@@ -20,6 +20,7 @@ dotenv_1.default.config();
 const ErrorMiddleware_1 = require("./middleware/ErrorMiddleware");
 const config_1 = __importDefault(require("./config/config"));
 const UserRoute_1 = __importDefault(require("./routes/UserRoute"));
+const WatchlistRoute_1 = __importDefault(require("./routes/WatchlistRoute"));
 const app = (0, express_1.default)();
 const envPort = config_1.default.port || '3000';
 const port = parseInt(String(envPort), 10);
@@ -44,7 +45,8 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use('/api', UserRoute_1.default);
+app.use('/api/users', UserRoute_1.default);
+app.use('/api.watchlist', WatchlistRoute_1.default);
 // Error handler middleware
 app.use(ErrorMiddleware_1.errorHandler);
 // **Ensure database connection before starting the server and seeding data**

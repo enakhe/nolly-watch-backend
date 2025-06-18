@@ -7,6 +7,7 @@ dotenv.config();
 import { errorHandler } from './middleware/ErrorMiddleware';
 import config from './config/config';
 import userRoute from './routes/UserRoute';
+import watchlistRoute from './routes/WatchlistRoute'
 
 const app: Application = express();
 const envPort = config.port || '3000';
@@ -35,7 +36,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', userRoute);
+app.use('/api/users', userRoute);
+app.use('/api.watchlist', watchlistRoute);
 
 // Error handler middleware
 app.use(errorHandler);
