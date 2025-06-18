@@ -1,16 +1,16 @@
 // errorHandler.ts
-import { Request, Response } from 'express';
-import config from '../config/config';
+import { Request, Response, NextFunction } from 'express';
 
 export const errorHandler = (
-	err: { message: string; stack: string },
+	err: { message: any; stack: any },
 	req: Request,
-	res: Response
+	res: Response,
+	next: NextFunction
 ) => {
 	const statusCode = res.statusCode === 200 ? 400 : res.statusCode;
 	res.status(statusCode).json({
 		message: err.message,
-		stack: config.nodeEnv === 'production' ? null : err.stack,
+		stack: process.env.NODE_ENV === 'production' ? null : err.stack,
 		statusCode,
 	});
 };

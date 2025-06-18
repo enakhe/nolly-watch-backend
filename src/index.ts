@@ -35,10 +35,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api', userRoute);
+
 // Error handler middleware
 app.use(errorHandler);
-
-app.use('/api', userRoute);
 
 // **Ensure database connection before starting the server and seeding data**
 const startServer = async () => {
