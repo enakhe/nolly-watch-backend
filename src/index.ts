@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express, { Application } from 'express';
+import cors from 'cors';
 import { connectDB } from './config/databaseConfig';
 dotenv.config();
 
@@ -11,6 +12,26 @@ const app: Application = express();
 const envPort = config.port || '3000';
 const port: number = parseInt(String(envPort), 10);
 
+// Define allowed CORS origins
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://nolly-watch.vercel.app',
+];
+
+const corsOptions = {
+    origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

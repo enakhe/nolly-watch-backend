@@ -4,8 +4,14 @@ import config from './config';
 
 export const connectDB = async () => {
     try {
-        const envMonURI = config.mongoUri || 'mongodb://localhost:27017/nolly-watch';
-        const conn = await mongoose.connect(envMonURI);
+        const envMonURI = config.mongoUri;
+        const connection = config.nodeEnv !== 'development' ? envMonURI : "mongodb://localhost:27017/memevex";
+
+        if (!connection) {
+            throw new Error('MongoDB connection string is undefined.');
+        }
+
+        const conn = await mongoose.connect(connection);
         console.log(colors.red.underline(`MongoDB Connected: ${conn.connection.host}`));
     } catch (err) {
         console.log(err);

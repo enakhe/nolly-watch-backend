@@ -1,12 +1,10 @@
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
-import { Request, Response, NextFunction } from 'express';
-import config from '../config/config';
 import User from '../model/User';
-import { UserType } from '../types';
+import { Request, Response, NextFunction } from 'express';
 
 export interface AuthenticatedRequest extends Request {
-    user?: UserType;
+    user?: any;
 }
 
 export const protect = asyncHandler(async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -15,18 +13,13 @@ export const protect = asyncHandler(async (req: AuthenticatedRequest, res: Respo
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
+            const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as jwt.JwtPayload;
+            req.user = await User.findOne({ publicKey: decoded.publicKey });
 
-            if (!config.jwtSecret) {
-                throw new Error('JWT secret is not defined');
-            }
-            const decoded = jwt.verify(token, config.jwtSecret as string) as jwt.JwtPayload;
-            const foundUser = await User.findOne({ _id: decoded.id });
-
-            if (!foundUser) {
+            if (!req.user) {
                 res.status(401);
                 throw new Error(`Not authorized`);
             }
-            req.user = foundUser;
 
             next();
         } catch (error) {
