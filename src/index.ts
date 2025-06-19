@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoute);
-app.use('/api.watchlist', watchlistRoute);
+app.use('/api/watchlist', watchlistRoute);
 
 // Error handler middleware
 app.use(errorHandler);

@@ -5,7 +5,7 @@ import config from './config';
 export const connectDB = async () => {
     try {
         const envMonURI = config.mongoUri;
-        const connection = config.nodeEnv !== 'development' ? envMonURI : "mongodb://localhost:27017/memevex";
+        const connection = config.nodeEnv !== 'development' ? envMonURI : "mongodb://localhost:27017/nolly-watch";
 
         if (!connection) {
             throw new Error('MongoDB connection string is undefined.');

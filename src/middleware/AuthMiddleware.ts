@@ -7,7 +7,11 @@ export interface AuthenticatedRequest extends Request {
     user?: any;
 }
 
-export const protect = asyncHandler(async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const protect = asyncHandler(async (
+    req: AuthenticatedRequest, 
+    res: Response, 
+    next: NextFunction) => {
+        
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {

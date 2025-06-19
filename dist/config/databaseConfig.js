@@ -19,7 +19,7 @@ const config_1 = __importDefault(require("./config"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const envMonURI = config_1.default.mongoUri;
-        const connection = config_1.default.nodeEnv !== 'development' ? envMonURI : "mongodb://localhost:27017/memevex";
+        const connection = config_1.default.nodeEnv !== 'development' ? envMonURI : "mongodb://localhost:27017/nolly-watch";
         if (!connection) {
             throw new Error('MongoDB connection string is undefined.');
         }

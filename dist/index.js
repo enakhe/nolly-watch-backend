@@ -46,7 +46,7 @@ app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/api/users', UserRoute_1.default);
-app.use('/api.watchlist', WatchlistRoute_1.default);
+app.use('/api/watchlist', WatchlistRoute_1.default);
 // Error handler middleware
 app.use(ErrorMiddleware_1.errorHandler);
 // **Ensure database connection before starting the server and seeding data**
