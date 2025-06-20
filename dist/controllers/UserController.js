@@ -37,9 +37,7 @@ exports.registerUser = (0, express_async_handler_1.default)((req, res) => __awai
     });
     if (user) {
         res.status(201).json({
-            _id: user.id,
-            name: user.username,
-            email: user.email,
+            user,
             token: generateToken(user._id.toString())
         });
     }
@@ -57,9 +55,7 @@ exports.loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter
     const user = yield User_1.default.findOne({ email });
     if (user && (yield bcryptjs_1.default.compare(password, user.password))) {
         res.status(200).json({
-            _id: user.id,
-            name: user.username,
-            email: user.email,
+            user,
             token: generateToken(user._id.toString())
         });
     }

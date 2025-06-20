@@ -43,9 +43,7 @@ export const registerUser = expressAsyncHandler(
 
         if (user) {
             res.status(201).json({
-                _id: user.id,
-                name: user.username,
-                email: user.email,
+                user,
                 token: generateToken(user._id.toString())
             });
         } else {
@@ -68,9 +66,7 @@ export const loginUser = expressAsyncHandler(
 
         if (user && (await bcrypt.compare(password, user.password))) {
             res.status(200).json({
-                _id: user.id,
-                name: user.username,
-                email: user.email,
+                user,
                 token: generateToken(user._id.toString())
             })
         } else {
@@ -87,6 +83,7 @@ export const getUserProfile = expressAsyncHandler(
             res.status(401);
             throw new Error("User not authenticated");
         }
+
         const id = req.user._id;
 
         const user = await User.findById(id);
